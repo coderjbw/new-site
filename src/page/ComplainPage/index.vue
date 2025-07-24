@@ -1,5 +1,5 @@
 <template>
-  <van-nav-bar
+  <!-- <van-nav-bar
     title="投诉"
     left-arrow
     fixed
@@ -91,88 +91,88 @@
   <van-button class="submit-button" type="primary" @click="subMit"
     >提交投诉单</van-button
   >
-  <div style="height: 150px"></div>
+  <div style="height: 150px"></div> -->
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { cityData } from "@/config/city";
-import { showToast, showLoadingToast } from "vant";
-import { addComplaint } from "@/api/request";
-// 投诉对象数据
-const objectData = ref([
-  {
-    text: "投诉旅行社",
-    value: "001",
-  },
-  {
-    text: "投诉导游",
-    value: "002",
-  },
-  {
-    text: "投诉商家",
-    value: "003",
-  },
-  {
-    text: "投诉景区",
-    value: "004",
-  },
-]);
-const showPicker = ref(false);
-// 选择投诉对象
-const selectedObject = ({ selectedOptions }: any) => {
-  selectResult.complaintTarget = selectedOptions[0].text;
-  showPicker.value = false;
-};
-const showPickerCity = ref(false);
-// 选择地区
-const selectedRegion = ({ selectedOptions }: any) => {
-  console.log(selectedOptions);
-  selectResult.location = "";
-  selectedOptions.forEach((item: any) => {
-    selectResult.location += item.text;
-  });
-  showPickerCity.value = false;
-};
-const showPickerTrave = ref(false);
-const travelMethodData = ref([
-  {
-    text: "自由行",
-    value: "001",
-  },
-  {
-    text: "跟团游",
-    value: "002",
-  },
-]);
-// 选择旅行方式
-const selectedTravelMode = ({ selectedOptions }: any) => {
-  selectResult.travelMethod = selectedOptions[0].text;
-  showPickerTrave.value = false;
-};
-// 存储选择的数据
-const selectResult = reactive({
-  complaintTarget: "",
-  complaintReason: "",
-  location: "",
-  appeal: "",
-  userName: "",
-  phoneNumber: "",
-  travelMethod: "",
-});
-// 提交
-const subMit = async () => {
-  console.log(selectResult);
-  showLoadingToast({
-    message: "提交中...",
-    forbidClick: true,
-    duration: 0,
-  });
-  await addComplaint(selectResult);
-  showToast("提交成功");
-  history.back();
-};
-const onClickLeft = () => history.back();
+// import { ref, reactive } from "vue";
+// import { cityData } from "@/config/city";
+// import { showToast, showLoadingToast } from "vant";
+// import { addComplaint } from "@/api/request";
+// // 投诉对象数据
+// const objectData = ref([
+//   {
+//     text: "投诉旅行社",
+//     value: "001",
+//   },
+//   {
+//     text: "投诉导游",
+//     value: "002",
+//   },
+//   {
+//     text: "投诉商家",
+//     value: "003",
+//   },
+//   {
+//     text: "投诉景区",
+//     value: "004",
+//   },
+// ]);
+// const showPicker = ref(false);
+// // 选择投诉对象
+// const selectedObject = ({ selectedOptions }: any) => {
+//   selectResult.complaintTarget = selectedOptions[0].text;
+//   showPicker.value = false;
+// };
+// const showPickerCity = ref(false);
+// // 选择地区
+// const selectedRegion = ({ selectedOptions }: any) => {
+//   console.log(selectedOptions);
+//   selectResult.location = "";
+//   selectedOptions.forEach((item: any) => {
+//     selectResult.location += item.text;
+//   });
+//   showPickerCity.value = false;
+// };
+// const showPickerTrave = ref(false);
+// const travelMethodData = ref([
+//   {
+//     text: "自由行",
+//     value: "001",
+//   },
+//   {
+//     text: "跟团游",
+//     value: "002",
+//   },
+// ]);
+// // 选择旅行方式
+// const selectedTravelMode = ({ selectedOptions }: any) => {
+//   selectResult.travelMethod = selectedOptions[0].text;
+//   showPickerTrave.value = false;
+// };
+// // 存储选择的数据
+// const selectResult = reactive({
+//   complaintTarget: "",
+//   complaintReason: "",
+//   location: "",
+//   appeal: "",
+//   userName: "",
+//   phoneNumber: "",
+//   travelMethod: "",
+// });
+// // 提交
+// const subMit = async () => {
+//   console.log(selectResult);
+//   showLoadingToast({
+//     message: "提交中...",
+//     forbidClick: true,
+//     duration: 0,
+//   });
+//   await addComplaint(selectResult);
+//   showToast("提交成功");
+//   history.back();
+// };
+// const onClickLeft = () => history.back();
 </script>
 
 <style scoped lang="less">
