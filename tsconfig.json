@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "strict": true, //严格类型校验
+    // 让编辑器有提示而已
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]

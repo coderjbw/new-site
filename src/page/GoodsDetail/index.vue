@@ -1,5 +1,5 @@
 <template>
-  <!-- <van-nav-bar
+  <van-nav-bar
     title="商品详情"
     left-arrow
     fixed
@@ -25,24 +25,24 @@
       <van-button type="primary" block>立即报名</van-button>
     </div>
   </div>
-  <div style="height: 100px"></div> -->
+  <div style="height: 100px"></div>
 </template>
 
 <script setup lang="ts">
-// import { useRoute } from "vue-router";
-// const $router = useRoute();
-// import { onMounted, ref } from "vue";
-// import { goodsDetails } from "@/api/request";
-// import { ServerGoodsDetails } from "@/types/index";
-// // 存储商品详情数据
-// const goodsDetailsData = ref<ServerGoodsDetails>([]);
-// onMounted(async () => {
-//   const goodsId = $router.query.id as string;
-//   const res = await goodsDetails({ goodsId });
-//   console.log(res);
-//   goodsDetailsData.value = res.data;
-// });
-// const onClickLeft = () => history.back();
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+const $router = useRoute();
+import { goodsDetails } from "@/api/request";
+import { ServerGoodsDetails } from "@/types/index";
+// 存储商品详情数据
+const goodsDetailsData = ref<ServerGoodsDetails>([]);
+onMounted(async () => {
+  const goodsId = $router.query.id as string;
+  const res = await goodsDetails({ goodsId });
+  console.log(res);
+  goodsDetailsData.value = res.data;
+});
+const onClickLeft = () => history.back();
 </script>
 
 <style scoped lang="less">

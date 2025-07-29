@@ -58,6 +58,7 @@ import loadIng from "../Loading/index.vue";
 import queryTrainTickets from "@/toolComponents/queryTrainTickets.vue";
 import weather from "@/toolComponents/weather.vue";
 import searchGoods from "@/toolComponents/searchGoods.vue";
+import { marked } from "marked";
 import { chatbotMessage } from "@/store/index";
 const store = chatbotMessage();
 </script>

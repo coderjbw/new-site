@@ -64,8 +64,77 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { showToast, showLoadingToast } from "vant";
+import type { UploaderBeforeRead, UploaderAfterRead } from "vant";
+import { uploadFile } from "@/api/request";
+import { chatbotMessage } from "@/store/index";
+const store = chatbotMessage();
 // 存储上传的图片
 const fileList = ref([{ url: "" }]);
+const showImage = ref(true);
+
+// 上传之前校验
+const beforeRead: UploaderBeforeRead = (file: any) => {
+  const imageType = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+  if (!imageType.includes(file.type)) {
+    showToast("请上传正确的图片");
+    return false;
+  }
+  return true;
+};
+// 上传成功
+const afterRead: UploaderAfterRead = async (file: any) => {
+  const toast = showLoadingToast({
+    message: "上传中...",
+    forbidClick: true,
+    duration: 0,
+  });
+  const formData = new FormData();
+  formData.append("file", file.file);
+  const res = await uploadFile(formData);
+  // 客户端
+  // fileList.value[0].url = "http://" + res.data;
+  // 服务器端
+  fileList.value[0].url = res.data;
+  showImage.value = false;
+  toast.close();
+};
+// 删除图片
+const beforeDelete = () => {
+  fileList.value[0].url = "";
+  showImage.value = true;
+};
+// 输入内容
+const inputContent = ref("");
+const sendMessage = () => {
+  // 输入为空，直接返回
+  if (inputContent.value.trim() === "") return;
+  store.sendMessage(
+    showImage.value
+      ? inputContent.value
+      : [
+          {
+            type: "text",
+            text: inputContent.value,
+          },
+          {
+            type: "image_url",
+            image_url: { url: fileList.value[0].url },
+          },
+        ]
+  );
+  beforeDelete();
+  inputContent.value = "";
+};
+const inquire = (val: string) => {
+  inputContent.value = val;
+  sendMessage();
+};
+// 清空
+const remove = () => {
+  if (store.prohibit) return;
+  store.messages = [];
+};
 </script>
 
 <style scoped lang="less">
