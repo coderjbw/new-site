@@ -45,10 +45,10 @@
       :function-data="item.toolData"
     ></weather>
     <!-- 搜索商品组件 -->
-    <!-- <searchGoods
-            v-if="item.role == 'assistant' && item.searchGoodsData && item.searchGoodsData.length > 0"
-            :-search-goods-data="item.searchGoodsData"
-        ></searchGoods> -->
+    <searchGoods
+      v-if="item.role == 'assistant' && item.searchGoodsData && item.searchGoodsData.length > 0"
+      :search-goods-data="item.searchGoodsData"
+    ></searchGoods>
   </div>
 </template>
 

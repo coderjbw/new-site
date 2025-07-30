@@ -17,65 +17,104 @@
 </template>
 
 <script setup lang="ts">
-
+import { ref, computed } from "vue";
+import { chatbotMessage } from "@/store/index";
+const store = chatbotMessage();
+// 默认问题
+const customerServiceList = ref([
+  "哀牢山可以进入探险旅游吗",
+  "大理古城有哪些夜市可以逛",
+  "昆明滇池可以坐游艇吗",
+  "带着家人到丽江旅游三天,帮我规划一个行程吧",
+  "在云南旅游遇到黑导游怎么办",
+  "怎样前往玉龙雪山？",
+  "丽江古城有哪些必去的景点？",
+  "云南有哪些著名的民族村落？",
+  "如何品尝正宗的云南过桥米线？",
+  "在大理周边有哪些值得一游的小镇？",
+  "云南有哪些著名的茶叶品种？",
+  "怎样体验云南的民俗文化？",
+  "在香格里拉有哪些不容错过的活动？",
+  "云南有哪些适合徒步的景点？",
+  "云南有哪些适合拍婚纱照的景点？",
+]);
+const currentIndex = ref(0);
+const displayedList = computed<string[]>(() => {
+  return JSON.parse(JSON.stringify(customerServiceList.value)).splice(currentIndex.value, 5);
+});
+// 换一换
+let grop = 0;
+const switchMode = () => {
+  grop += 5;
+  if (grop >= customerServiceList.value.length) {
+    currentIndex.value = 0;
+    grop = 0;
+    return;
+  }
+  currentIndex.value += 5;
+};
+const selectSend = (val: string) => {
+  if (store.prohibit) return;
+  store.sendMessage(val);
+};
 </script>
 
 <style scoped lang="less">
 .support-agent {
-    display: flex;
-    align-items: center;
-    img {
-        object-fit: cover;
-        width: 35px;
-        height: 35px;
-        margin-right: 8px;
-    }
-    p {
-        font-size: 14px;
-    }
+  display: flex;
+  align-items: center;
+  img {
+    object-fit: cover;
+    width: 35px;
+    height: 35px;
+    margin-right: 8px;
+  }
+  p {
+    font-size: 14px;
+  }
 }
 .customer-service {
-    background-color: #ffffff;
-    margin: 10px 0;
-    padding: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    .tips {
-        font-size: 16px;
-    }
-    .customer-service-list {
-        display: flex;
-        align-items: center;
-        background-color: #f2f4ff;
-        border-radius: 40px;
-        margin-top: 10px;
-        padding: 5px 7px;
-        img {
-        width: 25px;
-        height: 25px;
-        object-fit: cover;
-        }
-        p {
-        font-size: 14px;
-        padding-left: 4px;
-        }
-    }
-}
-.change-section {
-    display: inline-flex;
+  background-color: #ffffff;
+  margin: 10px 0;
+  padding: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  .tips {
+    font-size: 16px;
+  }
+  .customer-service-list {
+    display: flex;
     align-items: center;
-    background-color: #a8abb0;
+    background-color: #f2f4ff;
     border-radius: 40px;
-    padding: 4px 7px;
+    margin-top: 10px;
+    padding: 5px 7px;
     img {
-        width: 20px;
-        height: 20px;
+      width: 25px;
+      height: 25px;
+      object-fit: cover;
     }
     p {
-        font-size: 14px;
-        padding-left: 7px;
-        color: #ffffff;
+      font-size: 14px;
+      padding-left: 4px;
     }
+  }
+}
+.change-section {
+  display: inline-flex;
+  align-items: center;
+  background-color: #a8abb0;
+  border-radius: 40px;
+  padding: 4px 7px;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+  p {
+    font-size: 14px;
+    padding-left: 7px;
+    color: #ffffff;
+  }
 }
 </style>

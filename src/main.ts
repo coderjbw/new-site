@@ -17,6 +17,7 @@ import {
   Picker,
   Popup,
 } from "vant";
+import "vant/lib/index.css";
 
 const app = createApp(App);
 const pinia = createPinia();

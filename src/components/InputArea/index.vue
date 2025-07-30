@@ -135,6 +135,8 @@ const remove = () => {
   if (store.prohibit) return;
   store.messages = [];
 };
+
+const sendComplaint = () => {};
 </script>
 
 <style scoped lang="less">

@@ -22,10 +22,10 @@
 <script setup lang="ts">
 import { ServerSearchGoodsType } from "@/types/index";
 import { useRouter } from "vue-router";
-const $router = useRouter();
 defineProps<{
   SearchGoodsData: ServerSearchGoodsType;
 }>();
+const $router = useRouter();
 const goToUrl = (id: string) => {
   $router.push({ path: "/goodsDetails", query: { id } });
 };
